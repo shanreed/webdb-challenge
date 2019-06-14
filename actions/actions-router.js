@@ -36,13 +36,13 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  const { name } = req.body;
+  const { description, notes, project_id  } = req.body;
   const { id } = req.params;
-  if (!name) {
-    res.status(422).json({ message: 'name field required' });
+  if (!description || !notes || !project_id) {
+    res.status(422).json({ message: 'description, notes, and project_id fields required' });
   }
   // update actions
-  db.update(id, { name })
+  db.update(id, { description, notes, project_id  })
     .then(action => {
       if (action) {
         res.json(action);

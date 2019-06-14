@@ -53,7 +53,7 @@ router.put('/:id', (req, res) => {
   const { name, description } = req.body;
   const { id } = req.params;
   if (!name || !description) {
-    res.status(422).json({ message: 'name and description field required' });
+    res.status(422).json({ message: 'name and description fields required' });
   }
   // update projects
   db.update(id, { name, description })
