@@ -26,6 +26,7 @@ router.get('/:id', (req, res) => {
 
 
 router.get('/:id/actions', (req, res) => {
+  // retrieve a project by id with actions
   const {id} = req.params;
   db.getProjects(id)
   .then(action => {
