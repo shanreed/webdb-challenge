@@ -24,6 +24,19 @@ router.get('/:id', (req, res) => {
     });
 });
 
+
+router.get('/:id/actions', (req, res) => {
+  const {id} = req.params;
+  db.getProjects(id)
+  .then(action => {
+      res.status(200).json(projects, action);
+  })
+  .catch(err => {
+      res.status(500).json(err);
+  })
+})
+
+
 router.post('/', (req, res) => {
   // add a project to the database
   db.add(req.body)
