@@ -50,13 +50,13 @@ router.post('/', (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  const { name } = req.body;
+  const { name, description } = req.body;
   const { id } = req.params;
-  if (!name) {
-    res.status(422).json({ message: 'name field required' });
+  if (!name || !description) {
+    res.status(422).json({ message: 'name and description field required' });
   }
   // update projects
-  db.update(id, { name })
+  db.update(id, { name, description })
     .then(project => {
       if (project) {
         res.json(project);
