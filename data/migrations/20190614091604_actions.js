@@ -15,6 +15,10 @@ exports.up = function(knex, Promise) {
               .inTable('projects')
               .onDelete('CASCADE') 
               .onUpdate('CASCADE');
+
+            tbl
+              .boolean('completed')
+              .defaultTo(false);
       })
   
 };
