@@ -14,7 +14,6 @@ module.exports = {
   find,
   findById,
   add,
-  getProjects,
   update,
   remove
 };
@@ -41,10 +40,7 @@ function add(project) {
     });
 }
 
-function getProjects(project_id) {
-  return db('actions')
-  .where('project_id', project_id)
-}
+
 
 function update(id, changes) {
   return db('projects')

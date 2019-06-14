@@ -13,6 +13,8 @@ router.get('/', (req, res) => {
     });
 });
 
+
+
 router.get('/:id', (req, res) => {
   // retrieve a project by id
   db.findById(req.params.id)
@@ -25,15 +27,16 @@ router.get('/:id', (req, res) => {
 });
 
 
-router.get('/:id/actions', (req, res) => {
-  // retrieve a project by id with actions
-  const {id} = req.params;
-  db.getProjects(id)
-  .then(action => {
-      res.status(200).json(projects, action);
-  })
-  .catch(err => {
-      res.status(500).json(err);
+router.get('/api/projects/:id/actions', (req,res) => {
+  const project_id = req.params.id;
+  const id = req.params.id;
+  db('projects')
+  .where({ id: id })
+  .first()
+  .then(projects => {
+    db('actions')
+    .where({ project_id:  })
+    
   })
 })
 
@@ -49,13 +52,14 @@ router.post('/', (req, res) => {
     });
 });
 
+
+// update projects
 router.put('/:id', (req, res) => {
   const { name, description } = req.body;
   const { id } = req.params;
   if (!name || !description) {
     res.status(422).json({ message: 'name and description fields required' });
   }
-  // update projects
   db.update(id, { name, description })
     .then(project => {
       if (project) {
@@ -68,6 +72,8 @@ router.put('/:id', (req, res) => {
       res.status(err).json(err);
     });
 });
+
+
 
 router.delete('/:id', (req, res) => {
   // remove projects (inactivate the project)
